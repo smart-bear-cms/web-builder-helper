@@ -1,0 +1,61 @@
+{
+    "name": "web-builder-sdk/helper",
+    "type": "library",
+    "description": "Core Platform: Web Builder SDK - Helper by Hung Nguyen",
+    "keywords": [
+        "php",
+        "website",
+        "news"
+    ],
+    "homepage": "https://github.com/smart-bear-cms/web-builder-helper",
+    "license": "GPL-3.0-only",
+    "authors": [
+        {
+            "name": "Nguyen An Hung",
+            "email": "dev@nguyenanhung.com",
+            "homepage": "https://nguyenanhung.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "ext-pdo": "*",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "nguyenanhung/filtered-helper": ">=1.0",
+        "nguyenanhung/hashids-helper": ">=1.0",
+        "nguyenanhung/slug-helper": ">=1.0",
+        "nguyenanhung/tracking-tag-helper": ">=1.0",
+        "nguyenanhung/markdown": ">=1.0",
+        "web-builder-sdk/assets": "^1.0",
+        "nesbot/carbon": ">=1.0"
+    },
+    "require-dev": {
+        "nguyenanhung/my-cache": ">=1.0",
+        "nguyenanhung/seo": ">=1.0",
+        "nguyenanhung/image": ">=1.0",
+        "nguyenanhung/helpers": ">=1.0"
+    },
+    "suggest": {
+        "nguyenanhung/image": "Image Cache & Image processing",
+        "nguyenanhung/seo": "SEO Support",
+        "nguyenanhung/my-cache": "Cache Support",
+        "nguyenanhung/helpers": "For Awesome Helpers and Library"
+    },
+    "autoload": {
+        "psr-4": {
+            "nguyenanhung\\Platforms\\WebBuilderSDK\\WebBuilderHelper\\": "src/",
+            "nguyenanhung\\WebBuilderHelper\\": "old/"
+        },
+        "files": [
+            "helpers/helpers.php"
+
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
+    }
+}
