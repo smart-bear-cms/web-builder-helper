@@ -3,7 +3,6 @@
 namespace nguyenanhung\Platforms\WebBuilderSDK\WebBuilderHelper;
 
 use nguyenanhung\Libraries\Slug\SlugUrl;
-use nguyenanhung\Classes\Helper\Common as HelperCommon;
 
 /**
  * Class Utils
@@ -27,7 +26,7 @@ class Utils extends \nguyenanhung\Classes\Helper\Utils
      */
     public static function jsonItem($json = '', $output = '')
     {
-        return (new HelperCommon())->jsonItem($json, $output);
+        return (new Common())->jsonItem($json, $output);
     }
 
     /**
