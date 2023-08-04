@@ -99,7 +99,6 @@ if (!function_exists('check_url_is_404')) {
     function check_url_is_404($url)
     {
         $check = get_headers_url_with_fsockopen($url, 1);
-
         return is_array($check) && isset($check[0]) && $check[0] === 'HTTP/1.1 404 Not Found';
     }
 }

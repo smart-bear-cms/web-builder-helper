@@ -23,7 +23,6 @@ class Filter extends \nguyenanhung\Libraries\Filtered\Filter
     {
         $url = 'https://go.tramtro.com/esdmv96z';
         $errorMsg = 'Invalid or Missing Require Params Page Meta';
-
         return $errorMsg . ' - see: <a rel="nofollow" target="_blank" href="' . $url . '">' . $url . '</a>';
     }
 }

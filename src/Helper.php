@@ -11,8 +11,8 @@ namespace nguyenanhung\Platforms\WebBuilderSDK\WebBuilderHelper;
  */
 class Helper
 {
-    const VERSION = '1.0.1';
-    const LAST_MODIFIED = '2023-03-07';
+    const VERSION = '1.0.2';
+    const LAST_MODIFIED = '2023-08-04';
     const AUTHOR_NAME = 'Hung Nguyen';
     const AUTHOR_EMAIL = 'dev@nguyenanhung.com';
     const PROJECT_NAME = 'Helper: Web Builder by Hung Nguyen';

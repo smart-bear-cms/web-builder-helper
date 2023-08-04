@@ -52,10 +52,5 @@
             "helpers/helpers.php"
 
         ]
-    },
-    "config": {
-        "allow-plugins": {
-            "kylekatarnls/update-helper": true
-        }
     }
 }
