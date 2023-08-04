@@ -60,6 +60,9 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
      */
     public function resizeImage($url = '', $width = 100, $height = 100)
     {
+        if (empty($url)) {
+            return $url;
+        }
         try {
             // Cache Setup
             $cacheSecret = md5('Web-Builder-Helper-SEO-Resize-Image');
