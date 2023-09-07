@@ -71,6 +71,9 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
             }
 
             if ($resizeImageStatus === false) {
+                if (strpos($url,'vcms.gviet.vn') && function_exists('base_url')){
+                    return base_url('assets/images/system/no-image-available_x700.jpg');
+                }
                 return $url;
             }
 
