@@ -50,8 +50,8 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
      * Function resizeImage - Cache Image to Tmp Folder
      *
      * @param string|mixed $url
-     * @param int          $width
-     * @param int          $height
+     * @param int $width
+     * @param int $height
      *
      * @return string|mixed
      * @author   : 713uk13m <dev@nguyenanhung.com>
@@ -64,6 +64,16 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
             return $url;
         }
         try {
+            if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageStatus']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageStatus'] === false) {
+                $resizeImageStatus = false;
+            } else {
+                $resizeImageStatus = true;
+            }
+
+            if ($resizeImageStatus === false) {
+                return $url;
+            }
+
             // Cache Setup
             $cacheSecret = md5('Web-Builder-Helper-SEO-Resize-Image');
             $cacheKey = md5($url . $width . $height);
@@ -71,10 +81,10 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
             $cachePath = $this->sdkConfig['OPTIONS']['cachePath'];
             $cache = new Cache();
             $cache->setCachePath($cachePath)
-                  ->setCacheTtl($cacheTtl)
-                  ->setCacheDriver('files')
-                  ->setCacheDefaultChmod('0777')
-                  ->setCacheSecurityKey($cacheSecret);
+                ->setCacheTtl($cacheTtl)
+                ->setCacheDriver('files')
+                ->setCacheDefaultChmod('0777')
+                ->setCacheSecurityKey($cacheSecret);
             $cache->__construct();
 
             if ($cache->has($cacheKey)) {
