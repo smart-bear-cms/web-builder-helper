@@ -74,6 +74,14 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
                 return $url;
             }
 
+            if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithWordPressProxy']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithWordPressProxy'] === true) {
+                return wordpress_proxy($url);
+            }
+
+            if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithGoogleProxy']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithGoogleProxy'] === true) {
+                return google_image_resize($url, $width, $height);
+            }
+
             // Cache Setup
             $cacheSecret = md5('Web-Builder-Helper-SEO-Resize-Image');
             $cacheKey = md5($url . $width . $height);
