@@ -64,6 +64,7 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
             return $url;
         }
         try {
+            $url = str_replace('http://cdnphoto.dantri.com.vn/', 'https://cdnphoto.dantri.com.vn/', $url);
             if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageStatus']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageStatus'] === false) {
                 $resizeImageStatus = false;
             } else {
