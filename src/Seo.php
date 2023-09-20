@@ -3,6 +3,7 @@
 namespace nguyenanhung\Platforms\WebBuilderSDK\WebBuilderHelper;
 
 use Exception;
+use nguyenanhung\Libraries\ImageHelper\ImageHelper;
 use nguyenanhung\MyCache\Cache;
 use nguyenanhung\Classes\Helper\Common;
 use nguyenanhung\MyImage\ImageCache;
@@ -75,24 +76,51 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
                 return $url;
             }
 
-            // Only Cache
+            // Only Cache with WordPress JetPack
             if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['onlyCacheImageWithWordPressProxy']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['onlyCacheImageWithWordPressProxy'] === true) {
                 return wordpress_proxy($url);
             }
+
+            // Only Cache with Google User Content
             if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['onlyCacheImageWithGoogleProxy']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['onlyCacheImageWithGoogleProxy'] === true) {
                 return google_image_resize($url, null);
             }
 
-            // With Resize
+            // Resize with WordPress JetPack
             if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithWordPressProxy']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithWordPressProxy'] === true) {
-                return wordpress_proxy($url, 'i3', $width, $height);
+                // Cache Server
+                if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['serverWordPressProxy']) && !empty(isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['serverWordPressProxy']))) {
+                    $configCacheServer = $this->sdkConfig[self::HANDLE_CONFIG_KEY]['serverWordPressProxy'];
+                    $serverSupport = ImageHelper::wordpressProxyProxyServerList();
+                    if (in_array($configCacheServer, $serverSupport)) {
+                        $cacheServer = $configCacheServer;
+                    } else {
+                        $cacheServer = 'i1';
+                    }
+                } else {
+                    $cacheServer = 'i3';
+                }
+                return wordpress_proxy($url, $cacheServer, $width, $height);
             }
 
+            // Resize with Google User Content
             if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithGoogleProxy']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithGoogleProxy'] === true) {
-                return google_image_resize($url, $width, $height);
+                // Cache Server
+                if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['serverGoogleProxy']) && !empty(isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['serverGoogleProxy']))) {
+                    $configCacheServer = $this->sdkConfig[self::HANDLE_CONFIG_KEY]['serverGoogleProxy'];
+                    $serverSupport = ImageHelper::googleGadgetsProxyServerList();
+                    if (in_array($configCacheServer, $serverSupport)) {
+                        $cacheServer = $configCacheServer;
+                    } else {
+                        $cacheServer = 'images2';
+                    }
+                } else {
+                    $cacheServer = 'images1';
+                }
+                return google_image_resize($url, $width, $height, $cacheServer);
             }
 
-            // Cache Setup
+            // My Server Cache Setup
             $cacheSecret = md5('Web-Builder-Helper-SEO-Resize-Image');
             $cacheKey = md5($url . $width . $height);
             $cacheTtl = 15552000; // Cache 6 tháng
@@ -133,7 +161,6 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
                 }
                 $cache->save($cacheKey, $result);
             }
-
             return $result;
         } catch (Exception $e) {
             if (function_exists('log_message')) {
