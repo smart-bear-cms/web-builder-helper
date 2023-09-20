@@ -72,6 +72,10 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
                 $resizeImageStatus = true;
             }
 
+            if (defined('WEB_BUILDER_SDK_RESIZE_IMAGE_PRIORITY_WITH_WORDPRESS_JETPACK') && WEB_BUILDER_SDK_RESIZE_IMAGE_PRIORITY_WITH_WORDPRESS_JETPACK === true) {
+                return wordpress_proxy($url, 'i3', $width, $height);
+            }
+
             if ($resizeImageStatus === false) {
                 return $url;
             }
