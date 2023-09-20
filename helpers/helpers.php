@@ -22,24 +22,24 @@ if (!function_exists('default_meta_http_equiv')) {
     {
         return array(
             array(
-                'name'    => 'X-UA-Compatible',
+                'name' => 'X-UA-Compatible',
                 'content' => 'IE=edge',
-                'type'    => 'http-equiv'
+                'type' => 'http-equiv'
             ),
             array(
-                'name'    => 'refresh',
+                'name' => 'refresh',
                 'content' => $content_refresh,
-                'type'    => 'equiv'
+                'type' => 'equiv'
             ),
             array(
-                'name'    => 'content-language',
+                'name' => 'content-language',
                 'content' => 'vi',
-                'type'    => 'equiv'
+                'type' => 'equiv'
             ),
             array(
-                'name'    => 'audience',
+                'name' => 'audience',
                 'content' => 'general',
-                'type'    => 'equiv'
+                'type' => 'equiv'
             )
         );
     }
@@ -125,5 +125,31 @@ if (!function_exists('_sdk_highlight_search_keyword_')) {
         }
 
         return $str;
+    }
+}
+if (!function_exists('_web_builder_sdk_resize_image_url_')) {
+    /**
+     * Function _web_builder_sdk_resize_image_url_
+     *
+     * @param \nguyenanhung\Platforms\WebBuilderSDK\WebBuilderHelper\Seo $seo
+     * @param $url
+     * @param $width
+     * @param $height
+     * @param $server
+     * User: 713uk13m <dev@nguyenanhung.com>
+     * Copyright: 713uk13m <dev@nguyenanhung.com>
+     * @return string
+     */
+    function _web_builder_sdk_resize_image_url_($seo, $url = '', $width = 345, $height = 200, $server = 'i3'): string
+    {
+        $url = trim($url);
+        if (empty($url)) {
+            return $url;
+        }
+        if (defined('WEB_BUILDER_SDK_RESIZE_IMAGE_PRIORITY_WITH_WORDPRESS_JETPACK') && WEB_BUILDER_SDK_RESIZE_IMAGE_PRIORITY_WITH_WORDPRESS_JETPACK === true) {
+            return wordpress_proxy($url, $server, $width, $height);
+        }
+        $itemImageUrl = $seo->resizeImage($seo->imageUrl($url), $width, $height);
+        return trim($itemImageUrl);
     }
 }
