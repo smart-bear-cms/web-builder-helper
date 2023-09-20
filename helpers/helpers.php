@@ -135,12 +135,13 @@ if (!function_exists('_web_builder_sdk_resize_image_url_')) {
      * @param $url
      * @param $width
      * @param $height
+     * @param $cdnOptimize
      * @param $server
      * User: 713uk13m <dev@nguyenanhung.com>
      * Copyright: 713uk13m <dev@nguyenanhung.com>
      * @return string
      */
-    function _web_builder_sdk_resize_image_url_($seo, $url = '', $width = 345, $height = 200, $server = 'i3'): string
+    function _web_builder_sdk_resize_image_url_($seo, $url = '', $width = 345, $height = 200, $cdnOptimize = true, $server = 'i3'): string
     {
         $url = trim($url);
         if (empty($url)) {
@@ -148,6 +149,9 @@ if (!function_exists('_web_builder_sdk_resize_image_url_')) {
         }
         if (defined('WEB_BUILDER_SDK_RESIZE_IMAGE_PRIORITY_WITH_WORDPRESS_JETPACK') && WEB_BUILDER_SDK_RESIZE_IMAGE_PRIORITY_WITH_WORDPRESS_JETPACK === true) {
             return wordpress_proxy($url, $server, $width, $height);
+        }
+        if ($cdnOptimize === true) {
+            $url = smart_bear_cms_external_cdn_url_optimize($url);
         }
         $itemImageUrl = $seo->resizeImage($seo->imageUrl($url), $width, $height);
         return trim($itemImageUrl);
