@@ -64,7 +64,7 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
             return $url;
         }
         try {
-            $url = str_replace('http://cdnphoto.dantri.com.vn/', 'https://cdnphoto.dantri.com.vn/', $url);
+            $url = smart_bear_cms_cdn_url_http_to_https($url);
             if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageStatus']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageStatus'] === false) {
                 $resizeImageStatus = false;
             } else {
@@ -75,8 +75,17 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
                 return $url;
             }
 
-            if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithWordPressProxy']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithWordPressProxy'] === true) {
+            // Only Cache
+            if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['onlyCacheImageWithWordPressProxy']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['onlyCacheImageWithWordPressProxy'] === true) {
                 return wordpress_proxy($url);
+            }
+            if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['onlyCacheImageWithGoogleProxy']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['onlyCacheImageWithGoogleProxy'] === true) {
+                return google_image_resize($url, null);
+            }
+
+            // With Resize
+            if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithWordPressProxy']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithWordPressProxy'] === true) {
+                return wordpress_proxy($url, 'i3', $width, $height);
             }
 
             if (isset($this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithGoogleProxy']) && $this->sdkConfig[self::HANDLE_CONFIG_KEY]['resizeImageWithGoogleProxy'] === true) {
