@@ -48,11 +48,56 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
     }
 
     /**
+     * Function viewVideoTVPagination
+     *
+     * @param array $data
+     *
+     * @return string|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 25/09/2023 52:35
+     */
+    public function viewVideoTVPagination(array $data = array())
+    {
+        return $this->common->viewVideoTVPagination($data);
+    }
+
+    /**
+     * Function viewMorePagination
+     *
+     * @param array $data
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 25/09/2023 52:41
+     */
+    public function viewMorePagination(array $data = array())
+    {
+        return $this->common->viewMorePagination($data);
+    }
+
+    /**
+     * Function viewSelectPagination
+     *
+     * @param array $data
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 25/09/2023 52:45
+     */
+    public function viewSelectPagination(array $data = array())
+    {
+        return $this->common->viewSelectPagination($data);
+    }
+
+    /**
      * Function resizeImage - Cache Image to Tmp Folder
      *
      * @param string|mixed $url
-     * @param int $width
-     * @param int $height
+     * @param int          $width
+     * @param int          $height
      *
      * @return string|mixed
      * @author   : 713uk13m <dev@nguyenanhung.com>
@@ -131,10 +176,10 @@ class Seo extends \nguyenanhung\SEO\SeoUrl
             $cachePath = $this->sdkConfig['OPTIONS']['cachePath'];
             $cache = new Cache();
             $cache->setCachePath($cachePath)
-                ->setCacheTtl($cacheTtl)
-                ->setCacheDriver('files')
-                ->setCacheDefaultChmod('0777')
-                ->setCacheSecurityKey($cacheSecret);
+                  ->setCacheTtl($cacheTtl)
+                  ->setCacheDriver('files')
+                  ->setCacheDefaultChmod('0777')
+                  ->setCacheSecurityKey($cacheSecret);
             $cache->__construct();
 
             if ($cache->has($cacheKey)) {
